@@ -33,6 +33,10 @@ function AboutUs({ navigation }) {
         title="FEES"
         onPress={() => navigation.navigate('Fees')}
       />
+       <Button
+        title="CONTACT"
+        onPress={() => navigation.navigate('Contact')}
+      />
     </View>
     </ScrollView>
   );
@@ -215,7 +219,7 @@ function Fees() {
   const [email, setEmail] = useState('');
   const [isChecked, setChecked] = useState(false);
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.title}>Total Fees</Text>
       <View style={styles.container}>  
 
@@ -285,19 +289,16 @@ function Fees() {
 
 function Contact() {
   return (
-    <View style={{ flex: 1,}}>
-      <Text>Contact Us</Text>
-      <Text> 
-      Phone: 123-456-7890
-      Email: info@empoweringthenation.com
-      Our Venues in Johannesburg
-      <ul>
-        <li>123 Elm St, Johannesburg Central</li>
-        <li>456 Oak St, Sandton</li>
-        <li>789 Pine St, Randburg</li>
-      </ul>
-	  </Text>
-  
+    <View style={styles.container}>
+      <Text style={styles.title}>Contact Us</Text>
+      <Text>Phone: 123-456-7890</Text>
+      <Text>Email: info@empoweringthenation.com</Text>
+      <Text>Our Venues in Johannesburg</Text>
+      
+        <Text>• 123 Elm St, Johannesburg Central</Text>
+        <Text>• 456 Oak St, Sandton</Text>
+        <Text>• 789 Pine St, Randburg</Text>
+      
     </View>
   );
 }
