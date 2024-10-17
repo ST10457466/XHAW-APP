@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
-import { StyleSheet, Button, TextInput, Text, ScrollView, View } from 'react-native';
+import React, {useState} from 'react';
+import { StyleSheet, Button, TextInput, Text, Image, ScrollView, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Checkbox from 'expo-checkbox';
 
 function AboutUs({ navigation }) {
   return (
     <ScrollView contentContainerStyle={styles.container}>
-    <View style={{ flex: 1,}}>
-      <Text>About Us</Text>
+    <View>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/logo.png')} />
+      </View>
+      <Text style={styles.title}>About Us</Text>
       <Text>The SME is an initiative by Precious Radebe to provide skills training for domestic workers and gardeners. Her parents and other elderly relatives
 		were never given the chance to upskill themselves or follow a formal educational qualification, so this training school is her way of supporting
 		similarly affected members from her community. The training she provides upskills domestic workers and gardeners by making them more
@@ -15,13 +20,18 @@ function AboutUs({ navigation }) {
 		and setup their own small business utilising these newly obtained skills. Many employers would like to have their employees upskilled to offer
 		more skilled services to the household. Customers (employers or employees) can select from a range of courses available. They can select more than
 		one course. They more courses the customers select the more discount they receive.</Text>
-      <Button
+      <Button 
         title="SIX-MONTH COURSES"
         onPress={() => navigation.navigate('6Months')}
       />
       <Button
         title="SIX-WEEK COURSES"
         onPress={() => navigation.navigate('6Weeks')}
+      />
+
+       <Button
+        title="FEES"
+        onPress={() => navigation.navigate('Fees')}
       />
     </View>
     </ScrollView>
@@ -30,9 +40,9 @@ function AboutUs({ navigation }) {
 
 function SixMonthCourses({navigation}) {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/logo.png')} alt="Logo" />
-      <Text>Six Month Courses</Text>
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Six Month Courses</Text>
       
       <Button
         title="FIRST AID"
@@ -57,8 +67,8 @@ function SixMonthCourses({navigation}) {
 
 function SixWeekCourses({navigation}) {
   return (
-    <View style={{ flex: 1,}}>
-      <Text>Six Week Courses</Text>
+    <View style={styles.container}>
+      <Text style={styles.title}>Six Week Courses</Text>
       
       <Button
         title="CHILD MINDING"
@@ -79,134 +89,122 @@ function SixWeekCourses({navigation}) {
 
 function FirstAid() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/firstaid.jpeg')} alt="Logo" />
-      <Text>First Aid</Text>
-      <Text>Fees: R1500
-	Purpose: To provide first aid awareness and basic life support
-	Content:
-	<ul>
-	<li>Wounds and bleeding</li>
-	<li>Burns and fractures</li>
-	<li>Emergency scene management</li>
-	<li>Cardio-Pulmonary Resuscitation (CPR)</li>
-	<li>Respiratory distress e.g., Choking, blocked airway</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>First Aid</Text>
+      <Text>Fees: R1500</Text>
+	<Text>Purpose: To provide first aid awareness and basic life support</Text>
+	<Text>Content:</Text>
+	
+	<Text>• Wounds and bleeding</Text>
+	<Text>• Burns and fractures</Text>
+	<Text>• Emergency scene management</Text>
+	<Text>• Cardio-Pulmonary Resuscitation (CPR)</Text>
+	<Text>• Respiratory distress e.g., Choking, blocked airway</Text>
     </View>
   );
 }
 
 function Sewing() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/sewing.jpeg')} alt="Sewing" />
-      <Text>Sewing</Text>
-      <Text>Fees: R1500
-	Purpose:  To provide alterations and new garment tailoring services
-	Content:
-	<ul>
-	<li>Types of stitches</li>
-	<li>Threading a sewing machine</li>
-	<li>Sewing buttons, zips, hems and seams</li>
-	<li>Alterations</li>
-	<li>Designing and sewing new garments</li>
-	</ul></Text>
+    <View style={styles.container}>
+     
+      <Text style={styles.title}>Sewing</Text>
+      <Text>Fees: R1500</Text>
+	<Text>Purpose:  To provide alterations and new garment tailoring services</Text>
+	<Text>Content:</Text>
+
+	<Text>• Types of stitches</Text>
+	<Text>• Threading a sewing machine</Text>
+	<Text>• Sewing buttons, zips, hems and seams</Text>
+	<Text>• Alterations</Text>
+	<Text>• Designing and sewing new garments</Text>
     </View>
   );
 }
 
 function Landscaping() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/landscaping.jpeg')} alt="Landscaping" />
-      <Text>Landscaping</Text>
-      <Text>Fees: R1500
-	Purpose:  To provide landscaping services for new and established gardens
-	Content:
-	<ul>
-	<li>Indigenous and exotic plants and trees</li>
-	<li>Fixed structures (fountains, statues, benches, tables, built-in braai)</li>
-	<li>Balancing of plants and trees in a garden</li>
-	<li>Aesthetics of plant shapes and colours</li>
-	<li>Garden layout</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Landscaping</Text>
+      <Text>Fees: R1500</Text>
+	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
+	<Text>Content:</Text>
+	
+	<Text>• Indigenous and exotic plants and trees</Text>
+	<Text>• Fixed structures (fountains, statues, benches, tables, built-in braai)</Text>
+	<Text>• Balancing of plants and trees in a garden</Text>
+	<Text>• Aesthetics of plant shapes and colours</Text>
+	<Text>• Garden layout</Text>
     </View>
   );
 }
 
 function LifeSkills() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/lifeskills.jpeg')} alt="Life Skills" />
-      <Text>Life Skills</Text>
-      <Text>Fees: R1500
-	Purpose:  To provide landscaping services for new and established gardens
-	Content:
-	<ul>
-	<li>Opening a bank account</li>
-	<li>Basic labour law (know your rights)</li>
-	<li>Basic reading and writing literacy</li>
-	<li>Basic numeric literacy</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Life Skills</Text>
+      <Text>Fees: R1500</Text>
+	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
+	<Text>Content:</Text>
+
+	<Text>• Opening a bank account</Text>
+	<Text>• Basic labour law (know your rights)</Text>
+	<Text>• Basic reading and writing literacy</Text>
+	<Text>• Basic numeric literacy</Text>
     </View>
   );
 }
 
 function ChildMinding() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/childminding.png')} alt="Child Minding" />
-      <Text>Child Minding</Text>
-      <Text>Fees: R750
-	Purpose: To provide basic child and baby car
-	Content:
-	<ul>
-	<li>birth to six-month old baby needs</li>
-	<li>seven-month to one year old needs</li>
-	<li>Toddler needs</li>
-	<li>Educational toys</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Child Minding</Text>
+      <Text>Fees: R750</Text>
+	<Text>Purpose: To provide basic child and baby car</Text>
+	<Text>Content:</Text>
+	
+	<Text>• birth to six-month old baby needs</Text>
+	<Text>• seven-month to one year old needs</Text>
+	<Text>• Toddler needs</Text>
+	<Text>• Educational toys</Text>
     </View>
   );
 }
 
 function Cooking() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/cooking.jpeg')} alt="Cooking" />
-      <Text>Cooking</Text>
-      <Text>Fees: R750
-	Purpose: To prepare and cook nutritious family meals
-	Content:
-	<ul>
-	<li>Nutritional requirements for a healthy body</li>
-	<li>Types of protein, carbohydrates and vegetables</li>
-	<li>Planning meals</li>
-	<li>Preparation and cooking of meals</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Cooking</Text>
+      <Text>Fees: R750</Text>
+	<Text>Purpose: To prepare and cook nutritious family meals</Text>
+	<Text>Content:</Text>
+	
+	<Text>• Nutritional requirements for a healthy body</Text>
+	<Text>• Types of protein, carbohydrates and vegetables</Text>
+	<Text>• Planning meals</Text>
+	<Text>• Preparation and cooking of meals</Text>
     </View>
   );
 }
 
 function GardenMaintenance() {
   return (
-    <View style={{ flex: 1,}}>
-      <img src={require('assets/images/gardenmaintenance.png')} alt="Garden Maintenance" />
-      <Text>Garden Maintenance</Text>
-      <Text>Fees: R750
-	Purpose: To provide basic knowledge of watering, pruning and planting in a domestic garden.
-	Content:
-	<ul>
-	<li>Water restrictions and the watering requirements of indigenous and exotic plants</li>
-	<li>Pruning and propagation of plants</li>
-	<li>Planting techniques for different plant types</li>
-	</ul></Text>
-  
+    <View style={styles.container}>
+      
+      <Text style={styles.title}>Garden Maintenance</Text>
+      <Text>Fees: R750</Text>
+	<Text>Purpose: To provide basic knowledge of watering, pruning and planting in a domestic garden.</Text>
+	<Text>Content:</Text>
+
+	<Text>• Water restrictions and the watering requirements of indigenous and exotic plants</Text>
+	<Text>• Pruning and propagation of plants</Text>
+	<Text>• Planting techniques for different plant types</Text>
+
     </View>
   );
 }
@@ -215,9 +213,10 @@ function Fees() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
+  const [isChecked, setChecked] = useState(false);
   return (
-    <View style={{ flex: 1,}}>
-      <Text>Total Fees</Text>
+    <View>
+      <Text style={styles.title}>Total Fees</Text>
       <View style={styles.container}>  
 
         <View style={styles.inputContainer}> 
@@ -228,6 +227,9 @@ function Fees() {
               onChangeText={setName} 
 
             /> 
+            </View>
+
+             <View style={styles.inputContainer}>
             <TextInput 
               style={styles.input} 
               placeholder="Enter Surname" 
@@ -235,6 +237,9 @@ function Fees() {
               onChangeText={setSurname} 
 
             />
+            </View>
+
+            <View style={styles.inputContainer}>
             <TextInput 
               style={styles.input} 
               placeholder="Enter Email" 
@@ -243,8 +248,38 @@ function Fees() {
 
             />
         </View>
+        <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> First Aid </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Sewing </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Landscaping </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Life Skills </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Child Minding </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Cooking </Text>
+        </View>
+         <View style={styles.row}>
+        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
+        <Text> Garden Maintenance </Text>
+        </View>
+        
       </View>
     </View>
+
   );
 }
 
@@ -271,7 +306,7 @@ function Contact() {
 
 const Stack = createNativeStackNavigator();
 
-function App() {
+export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="About Us">
@@ -296,19 +331,43 @@ function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    padding: 15,
+    backgroundColor: '#a0a0a0',
   },
   inputContainer: { 
     flexDirection: 'row', 
     alignItems: 'center', 
 }, 
+button: {
+   color: "#841584",
+    marginTop: 10,
+},
+ title: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 10,
+  },
 input: { 
     flex: 1, 
     height: 40, 
-    borderColor: 'gray', 
+    borderColor: 'white', 
     borderWidth: 1, 
     paddingHorizontal: 10, 
+},
+mainPicture: {
+  paddingTop: 40,
+  justifyContent: 'center',
+  alignItems: 'center',
+},
+ImageSize: {
+  width: 350,
+  height: 350,
+},
+row: {
+  flexDirection: 'row',
+  alignItems: 'center',
+},
+checkbox: {
+  margin: 8,
 },
 });
