@@ -96,6 +96,10 @@ function FirstAid() {
     <View style={styles.container}>
       
       <Text style={styles.title}>First Aid</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/firstaid.jpeg')} />
+      </View>
       <Text>Fees: R1500</Text>
 	<Text>Purpose: To provide first aid awareness and basic life support</Text>
 	<Text>Content:</Text>
@@ -114,6 +118,10 @@ function Sewing() {
     <View style={styles.container}>
      
       <Text style={styles.title}>Sewing</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/sewing.jpeg')} />
+      </View>
       <Text>Fees: R1500</Text>
 	<Text>Purpose:  To provide alterations and new garment tailoring services</Text>
 	<Text>Content:</Text>
@@ -132,6 +140,10 @@ function Landscaping() {
     <View style={styles.container}>
       
       <Text style={styles.title}>Landscaping</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/landscaping.jpeg')} />
+      </View>
       <Text>Fees: R1500</Text>
 	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
 	<Text>Content:</Text>
@@ -150,6 +162,10 @@ function LifeSkills() {
     <View style={styles.container}>
       
       <Text style={styles.title}>Life Skills</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/lifeskills.jpeg')} />
+      </View>
       <Text>Fees: R1500</Text>
 	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
 	<Text>Content:</Text>
@@ -167,6 +183,10 @@ function ChildMinding() {
     <View style={styles.container}>
       
       <Text style={styles.title}>Child Minding</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/childminding.jpeg')} />
+      </View>
       <Text>Fees: R750</Text>
 	<Text>Purpose: To provide basic child and baby car</Text>
 	<Text>Content:</Text>
@@ -183,7 +203,11 @@ function Cooking() {
   return (
     <View style={styles.container}>
       
-      <Text style={styles.title}>Cooking</Text>
+      <Text style={styles.title}>Cooking</Text><View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/cooking.jpeg')} />
+      </View>
+
       <Text>Fees: R750</Text>
 	<Text>Purpose: To prepare and cook nutritious family meals</Text>
 	<Text>Content:</Text>
@@ -201,6 +225,10 @@ function GardenMaintenance() {
     <View style={styles.container}>
       
       <Text style={styles.title}>Garden Maintenance</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize}
+        source={require('./images/gardenmaintenance.jpeg')} />
+      </View>
       <Text>Fees: R750</Text>
 	<Text>Purpose: To provide basic knowledge of watering, pruning and planting in a domestic garden.</Text>
 	<Text>Content:</Text>
