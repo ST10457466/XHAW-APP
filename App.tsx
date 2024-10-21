@@ -217,7 +217,36 @@ function Fees() {
   const [name, setName] = useState('');
   const [surname, setSurname] = useState('');
   const [email, setEmail] = useState('');
-  const [isChecked, setChecked] = useState(false);
+
+  // Independent state for each checkbox
+  const [isFirstAidChecked, setFirstAidChecked] = useState(false);
+  const [isSewingChecked, setSewingChecked] = useState(false);
+  const [isLandscapingChecked, setLandscapingChecked] = useState(false);
+  const [isLifeSkillsChecked, setLifeSkillsChecked] = useState(false);
+  const [isChildMindingChecked, setChildMindingChecked] = useState(false);
+  const [isCookingChecked, setCookingChecked] = useState(false);
+  const [isGardenMaintenanceChecked, setGardenMaintenanceChecked] = useState(false);
+
+  // Fees calculation based on selected courses
+  const calculateTotalFees = () => {
+    let total = 0;
+    if (isFirstAidChecked) total += 1500;
+    if (isSewingChecked) total += 1500;
+    if (isLandscapingChecked) total += 1500;
+    if (isLifeSkillsChecked) total += 1500;
+    if (isChildMindingChecked) total += 750;
+    if (isCookingChecked) total += 750;
+    if (isGardenMaintenanceChecked) total += 750;
+
+    // Apply discount if more than 1 course selected
+    const numberOfCourses = [isFirstAidChecked, isSewingChecked, isLandscapingChecked, isLifeSkillsChecked, isChildMindingChecked, isCookingChecked, isGardenMaintenanceChecked].filter(Boolean).length;
+    if (numberOfCourses > 1) {
+      total *= 0.9; // 10% discount
+    }
+
+    return total;
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Total Fees</Text>
@@ -229,61 +258,61 @@ function Fees() {
               placeholder="Enter Name" 
               value={name} 
               onChangeText={setName} 
-
             /> 
-            </View>
+        </View>
 
-             <View style={styles.inputContainer}>
+        <View style={styles.inputContainer}>
             <TextInput 
               style={styles.input} 
               placeholder="Enter Surname" 
               value={surname} 
               onChangeText={setSurname} 
-
             />
-            </View>
+        </View>
 
-            <View style={styles.inputContainer}>
+        <View style={styles.inputContainer}>
             <TextInput 
               style={styles.input} 
               placeholder="Enter Email" 
               value={email} 
               onChangeText={setEmail} 
-
             />
         </View>
+
+        {/* Independent checkboxes for each course */}
         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> First Aid </Text>
+          <Checkbox style={styles.checkbox} value={isFirstAidChecked} onValueChange={setFirstAidChecked} />
+          <Text> First Aid (R1500)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Sewing </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isSewingChecked} onValueChange={setSewingChecked} />
+          <Text> Sewing (R1500)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Landscaping </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isLandscapingChecked} onValueChange={setLandscapingChecked} />
+          <Text> Landscaping (R1500)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Life Skills </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isLifeSkillsChecked} onValueChange={setLifeSkillsChecked} />
+          <Text> Life Skills (R1500)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Child Minding </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isChildMindingChecked} onValueChange={setChildMindingChecked} />
+          <Text> Child Minding (R750)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Cooking </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isCookingChecked} onValueChange={setCookingChecked} />
+          <Text> Cooking (R750)</Text>
         </View>
-         <View style={styles.row}>
-        <Checkbox style={styles.checkbox} value={isChecked} onValueChange={setChecked}/>
-        <Text> Garden Maintenance </Text>
+        <View style={styles.row}>
+          <Checkbox style={styles.checkbox} value={isGardenMaintenanceChecked} onValueChange={setGardenMaintenanceChecked} />
+          <Text> Garden Maintenance (R750)</Text>
         </View>
-        
+
+        {/* Total fees display */}
+        <Text style={styles.title}>Total Fees: R{calculateTotalFees()}</Text>
       </View>
     </View>
-
   );
 }
 
