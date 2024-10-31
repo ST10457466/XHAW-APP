@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import { StyleSheet, Button, TextInput, Text, Image, ScrollView, View } from 'react-native';
+import { StyleSheet, Button, TextInput, Text, Image, ScrollView, TouchableOpacity, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Checkbox from 'expo-checkbox';
+import MapView, { Marker } from 'react-native-maps';
 
 function AboutUs({ navigation }) {
   return (
@@ -20,24 +21,37 @@ function AboutUs({ navigation }) {
 		and setup their own small business utilising these newly obtained skills. Many employers would like to have their employees upskilled to offer
 		more skilled services to the household. Customers (employers or employees) can select from a range of courses available. They can select more than
 		one course. They more courses the customers select the more discount they receive.</Text>
-      <Button 
-        title="SIX-MONTH COURSES"
-        onPress={() => navigation.navigate('6Months')}
-      />
-      <Button
-        title="SIX-WEEK COURSES"
-        onPress={() => navigation.navigate('6Weeks')}
-      />
-
-       <Button
-        title="FEES"
-        onPress={() => navigation.navigate('Fees')}
-      />
-       <Button
-        title="CONTACT"
-        onPress={() => navigation.navigate('Contact')}
-      />
-    </View>
+    <View style={styles.buttonContainer}>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title="SIX-MONTH COURSES"
+              color="red"
+              onPress={() => navigation.navigate('6Months')}
+            />
+          </View>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title="SIX-WEEK COURSES"
+              color="red"
+              onPress={() => navigation.navigate('6Weeks')}
+            />
+          </View>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title="FEES"
+              color="red"
+              onPress={() => navigation.navigate('Fees')}
+            />
+          </View>
+          <View style={styles.buttonSpacing}>
+            <Button
+              title="CONTACT"
+              color="red"
+              onPress={() => navigation.navigate('Contact')}
+            />
+          </View>
+        </View>
+      </View>
     </ScrollView>
   );
 }
@@ -45,27 +59,22 @@ function AboutUs({ navigation }) {
 function SixMonthCourses({navigation}) {
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.title}>Six Month Courses</Text>
-      
-      <Button
-        title="FIRST AID"
-        onPress={() => navigation.navigate('FirstAid')}
-      />
-      <Button
-        title="SEWING"
-        onPress={() => navigation.navigate('Sewing')}
-      />
-      <Button
-        title="LANDSCAPING"
-        onPress={() => navigation.navigate('Landscaping')}
-      />
-      <Button
-        title="LIFE SKILLS"
-        onPress={() => navigation.navigate('LifeSkills')}
-      />
-
+    <Text style={styles.title}>Six Month Courses</Text>
+    <View style={styles.buttonContainer}>
+      <View style={styles.buttonSpacing}>
+        <Button title="FIRST AID" color="red" onPress={() => navigation.navigate('FirstAid')} />
+      </View>
+      <View style={styles.buttonSpacing}>
+        <Button title="SEWING" color="red" onPress={() => navigation.navigate('Sewing')} />
+      </View>
+      <View style={styles.buttonSpacing}>
+        <Button title="LANDSCAPING" color="red" onPress={() => navigation.navigate('Landscaping')} />
+      </View>
+      <View style={styles.buttonSpacing}>
+        <Button title="LIFE SKILLS" color="red" onPress={() => navigation.navigate('LifeSkills')} />
+      </View>
     </View>
+  </View>
   );
 }
 
@@ -73,149 +82,272 @@ function SixWeekCourses({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Six Week Courses</Text>
-      
-      <Button
-        title="CHILD MINDING"
-        onPress={() => navigation.navigate('ChildMinding')}
-      />
-      <Button
-        title="COOKING"
-        onPress={() => navigation.navigate('Cooking')}
-      />
-      <Button
-        title="GARDEN MAINTENANCE"
-        onPress={() => navigation.navigate('Maintenance')}
-      />
-
+      <View style={styles.buttonContainer}>
+        <View style={styles.buttonSpacing}>
+          <Button title="CHILD MINDING" color="red" onPress={() => navigation.navigate('ChildMinding')} />
+        </View>
+        <View style={styles.buttonSpacing}>
+          <Button title="COOKING" color="red" onPress={() => navigation.navigate('Cooking')} />
+        </View>
+        <View style={styles.buttonSpacing}>
+          <Button title="GARDEN MAINTENANCE" color="red" onPress={() => navigation.navigate('Maintenance')} />
+        </View>
+      </View>
     </View>
   );
 }
 
-function FirstAid() {
+function FirstAid({navigation}) {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
+  const sixMonthCourses = [
+    { name: 'First Aid', route: 'FirstAid' },
+    { name: 'Sewing', route: 'Sewing' },
+    { name: 'Landscaping', route: 'Landscaping' },
+    { name: 'Life Skills', route: 'LifeSkills' },
+  ];
+
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.title}>First Aid</Text>
-      <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/firstaid.jpeg')} />
+      <View style={styles.title}>
+        <Text style={styles.title}>First Aid</Text>
+        <TouchableOpacity onPress={toggleDropdown} style={styles.menuButton}>
+          <Text style={styles.menuButtonText}>Menu</Text>
+        </TouchableOpacity>
       </View>
-      <Text>Fees: R1500</Text>
-	<Text>Purpose: To provide first aid awareness and basic life support</Text>
-	<Text>Content:</Text>
-	
-	<Text>• Wounds and bleeding</Text>
-	<Text>• Burns and fractures</Text>
-	<Text>• Emergency scene management</Text>
-	<Text>• Cardio-Pulmonary Resuscitation (CPR)</Text>
-	<Text>• Respiratory distress e.g., Choking, blocked airway</Text>
+
+      {isDropdownVisible && (
+        <View style={styles.dropdown}>
+          {sixMonthCourses.map((course, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setDropdownVisible(false);
+                navigation.navigate(course.route);
+              }}
+              style={styles.dropdownItem}
+            >
+              <Text style={styles.dropdownText}>{course.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    <View style={styles.mainPicture}>
+      <Image style={styles.ImageSize} source={require('./images/firstaid.jpeg')} />
+    </View>
+    <Text>
+      <Text style={{ fontWeight: 'bold' }}>Fees:</Text> R1500
+    </Text>
+    <Text>
+      <Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide first aid awareness and basic life support
+    </Text>
+    <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+    <Text>• Wounds and bleeding</Text>
+    <Text>• Burns and fractures</Text>
+    <Text>• Emergency scene management</Text>
+    <Text>• Cardio-Pulmonary Resuscitation (CPR)</Text>
+    <Text>• Respiratory distress e.g., Choking, blocked airway</Text>
+  </View>
+);
+}
+
+function Sewing({navigation}) {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
+  const sixMonthCourses = [
+    { name: 'First Aid', route: 'FirstAid' },
+    { name: 'Sewing', route: 'Sewing' },
+    { name: 'Landscaping', route: 'Landscaping' },
+    { name: 'Life Skills', route: 'LifeSkills' },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.title}>
+        <Text style={styles.title}>Sewing</Text>
+        <TouchableOpacity onPress={toggleDropdown} style={styles.menuButton}>
+          <Text style={styles.menuButtonText}>Menu</Text>
+        </TouchableOpacity>
+      </View>
+
+      {isDropdownVisible && (
+        <View style={styles.dropdown}>
+          {sixMonthCourses.map((course, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setDropdownVisible(false);
+                navigation.navigate(course.route);
+              }}
+              style={styles.dropdownItem}
+            >
+              <Text style={styles.dropdownText}>{course.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize} source={require('./images/sewing.jpeg')} />
+      </View>
+      <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R1500</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide alterations and new garment tailoring services</Text>
+      <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+      <Text>• Types of stitches</Text>
+      <Text>• Threading a sewing machine</Text>
+      <Text>• Sewing buttons, zips, hems and seams</Text>
+      <Text>• Alterations</Text>
+      <Text>• Designing and sewing new garments</Text>
     </View>
   );
 }
 
-function Sewing() {
+function Landscaping({navigation}) {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
+  const sixMonthCourses = [
+    { name: 'First Aid', route: 'FirstAid' },
+    { name: 'Sewing', route: 'Sewing' },
+    { name: 'Landscaping', route: 'Landscaping' },
+    { name: 'Life Skills', route: 'LifeSkills' },
+  ];
+
   return (
     <View style={styles.container}>
-     
-      <Text style={styles.title}>Sewing</Text>
-      <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/sewing.jpeg')} />
+      <View style={styles.title}>
+        <Text style={styles.title}>Landscaping</Text>
+        <TouchableOpacity onPress={toggleDropdown} style={styles.menuButton}>
+          <Text style={styles.menuButtonText}>Menu</Text>
+        </TouchableOpacity>
       </View>
-      <Text>Fees: R1500</Text>
-	<Text>Purpose:  To provide alterations and new garment tailoring services</Text>
-	<Text>Content:</Text>
 
-	<Text>• Types of stitches</Text>
-	<Text>• Threading a sewing machine</Text>
-	<Text>• Sewing buttons, zips, hems and seams</Text>
-	<Text>• Alterations</Text>
-	<Text>• Designing and sewing new garments</Text>
+      {isDropdownVisible && (
+        <View style={styles.dropdown}>
+          {sixMonthCourses.map((course, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setDropdownVisible(false);
+                navigation.navigate(course.route);
+              }}
+              style={styles.dropdownItem}
+            >
+              <Text style={styles.dropdownText}>{course.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    <View style={styles.mainPicture}>
+      <Image style={styles.ImageSize} source={require('./images/landscaping.jpeg')} />
     </View>
-  );
+    <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R1500</Text>
+    <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide landscaping services for new and established gardens</Text>
+    <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+    <Text>• Indigenous and exotic plants and trees</Text>
+    <Text>• Fixed structures (fountains, statues, benches, tables, built-in braai)</Text>
+    <Text>• Balancing of plants and trees in a garden</Text>
+    <Text>• Aesthetics of plant shapes and colours</Text>
+    <Text>• Garden layout</Text>
+  </View>
+);
 }
 
-function Landscaping() {
+function LifeSkills({navigation}) {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!isDropdownVisible);
+  };
+
+  const sixMonthCourses = [
+    { name: 'First Aid', route: 'FirstAid' },
+    { name: 'Sewing', route: 'Sewing' },
+    { name: 'Landscaping', route: 'Landscaping' },
+    { name: 'Life Skills', route: 'LifeSkills' },
+  ];
+
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.title}>Landscaping</Text>
-      <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/landscaping.jpeg')} />
+      <View style={styles.title}>
+        <Text style={styles.title}>Life Skills</Text>
+        <TouchableOpacity onPress={toggleDropdown} style={styles.menuButton}>
+          <Text style={styles.menuButtonText}>Menu</Text>
+        </TouchableOpacity>
       </View>
-      <Text>Fees: R1500</Text>
-	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
-	<Text>Content:</Text>
-	
-	<Text>• Indigenous and exotic plants and trees</Text>
-	<Text>• Fixed structures (fountains, statues, benches, tables, built-in braai)</Text>
-	<Text>• Balancing of plants and trees in a garden</Text>
-	<Text>• Aesthetics of plant shapes and colours</Text>
-	<Text>• Garden layout</Text>
-    </View>
-  );
-}
 
-function LifeSkills() {
-  return (
-    <View style={styles.container}>
-      
-      <Text style={styles.title}>Life Skills</Text>
-      <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/lifeskills.jpeg')} />
-      </View>
-      <Text>Fees: R1500</Text>
-	<Text>Purpose:  To provide landscaping services for new and established gardens</Text>
-	<Text>Content:</Text>
-
-	<Text>• Opening a bank account</Text>
-	<Text>• Basic labour law (know your rights)</Text>
-	<Text>• Basic reading and writing literacy</Text>
-	<Text>• Basic numeric literacy</Text>
+      {isDropdownVisible && (
+        <View style={styles.dropdown}>
+          {sixMonthCourses.map((course, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => {
+                setDropdownVisible(false);
+                navigation.navigate(course.route);
+              }}
+              style={styles.dropdownItem}
+            >
+              <Text style={styles.dropdownText}>{course.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    <View style={styles.mainPicture}>
+      <Image style={styles.ImageSize} source={require('./images/lifeskills.jpeg')} />
     </View>
-  );
+    <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R1500</Text>
+    <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide life skills training for daily living and literacy improvement</Text>
+    <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+    <Text>• Opening a bank account</Text>
+    <Text>• Basic labour law (know your rights)</Text>
+    <Text>• Basic reading and writing literacy</Text>
+    <Text>• Basic numeric literacy</Text>
+  </View>
+);
 }
 
 function ChildMinding() {
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.title}>Child Minding</Text>
-      <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/childminding.jpeg')} />
-      </View>
-      <Text>Fees: R750</Text>
-	<Text>Purpose: To provide basic child and baby car</Text>
-	<Text>Content:</Text>
-	
-	<Text>• birth to six-month old baby needs</Text>
-	<Text>• seven-month to one year old needs</Text>
-	<Text>• Toddler needs</Text>
-	<Text>• Educational toys</Text>
+    <Text style={styles.title}>Child Minding</Text>
+    <View style={styles.mainPicture}>
+      <Image style={styles.ImageSize} source={require('./images/childminding.jpeg')} />
     </View>
-  );
+    <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R750</Text>
+    <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide basic child and baby care</Text>
+    <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+    <Text>• Birth to six-month-old baby needs</Text>
+    <Text>• Seven-month to one-year-old needs</Text>
+    <Text>• Toddler needs</Text>
+    <Text>• Educational toys</Text>
+  </View>
+);
 }
 
 function Cooking() {
   return (
     <View style={styles.container}>
-      
-      <Text style={styles.title}>Cooking</Text><View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/cooking.jpeg')} />
+      <Text style={styles.title}>Cooking</Text>
+      <View style={styles.mainPicture}>
+        <Image style={styles.ImageSize} source={require('./images/cooking.jpeg')} />
       </View>
-
-      <Text>Fees: R750</Text>
-	<Text>Purpose: To prepare and cook nutritious family meals</Text>
-	<Text>Content:</Text>
-	
-	<Text>• Nutritional requirements for a healthy body</Text>
-	<Text>• Types of protein, carbohydrates and vegetables</Text>
-	<Text>• Planning meals</Text>
-	<Text>• Preparation and cooking of meals</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R750</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To prepare and cook nutritious family meals</Text>
+      <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+      <Text>• Nutritional requirements for a healthy body</Text>
+      <Text>• Types of protein, carbohydrates, and vegetables</Text>
+      <Text>• Planning meals</Text>
+      <Text>• Preparation and cooking of meals</Text>
     </View>
   );
 }
@@ -223,20 +355,16 @@ function Cooking() {
 function GardenMaintenance() {
   return (
     <View style={styles.container}>
-      
       <Text style={styles.title}>Garden Maintenance</Text>
       <View style={styles.mainPicture}>
-        <Image style={styles.ImageSize}
-        source={require('./images/gardenmaintenance.jpeg')} />
+        <Image style={styles.ImageSize} source={require('./images/gardenmaintenance.jpeg')} />
       </View>
-      <Text>Fees: R750</Text>
-	<Text>Purpose: To provide basic knowledge of watering, pruning and planting in a domestic garden.</Text>
-	<Text>Content:</Text>
-
-	<Text>• Water restrictions and the watering requirements of indigenous and exotic plants</Text>
-	<Text>• Pruning and propagation of plants</Text>
-	<Text>• Planting techniques for different plant types</Text>
-
+      <Text><Text style={{ fontWeight: 'bold' }}>Fees:</Text> R750</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Purpose:</Text> To provide basic knowledge of watering, pruning and planting in a domestic garden</Text>
+      <Text style={{ fontWeight: 'bold' }}>Content:</Text>
+      <Text>• Water restrictions and the watering requirements of indigenous and exotic plants</Text>
+      <Text>• Pruning and propagation of plants</Text>
+      <Text>• Planting techniques for different plant types</Text>
     </View>
   );
 }
@@ -345,17 +473,42 @@ function Fees() {
 }
 
 function Contact() {
+  // Define locations with their coordinates
+  const locations = [
+    { name: '123 Elm St, Johannesburg Central', latitude: -26.2041, longitude: 28.0473 },
+    { name: '456 Oak St, Sandton', latitude: -26.1076, longitude: 28.0567 },
+    { name: '789 Pine St, Randburg', latitude: -26.1459, longitude: 27.9980 },
+  ];
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Contact Us</Text>
-      <Text>Phone: 123-456-7890</Text>
-      <Text>Email: info@empoweringthenation.com</Text>
-      <Text>Our Venues in Johannesburg</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Phone</Text>: 123-456-7890</Text>
+      <Text><Text style={{ fontWeight: 'bold' }}>Email</Text>: info@empoweringthenation.com</Text>
+      <Text style={{ fontWeight: 'bold' }}>Our Venues in Johannesburg:</Text>
       
-        <Text>• 123 Elm St, Johannesburg Central</Text>
-        <Text>• 456 Oak St, Sandton</Text>
-        <Text>• 789 Pine St, Randburg</Text>
-      
+      {locations.map((location, index) => (
+        <View key={index} style={styles.mapContainer}>
+          <Text>{location.name}</Text>
+          <MapView
+            style={styles.map}
+            initialRegion={{
+              latitude: location.latitude,
+              longitude: location.longitude,
+              latitudeDelta: 0.05, // Zoom level
+              longitudeDelta: 0.05, // Zoom level
+            }}
+          >
+            <Marker
+              coordinate={{
+                latitude: location.latitude,
+                longitude: location.longitude,
+              }}
+              title={location.name}
+            />
+          </MapView>
+        </View>
+      ))}
     </View>
   );
 }
@@ -400,8 +553,14 @@ button: {
    color: "#841584",
     marginTop: 10,
 },
+buttonContainer: {
+  marginTop: 15,
+},
+buttonSpacing: {
+  marginVertical: 8, // Adjust the spacing as needed
+},
  title: {
-    fontSize: 20,
+    fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 10,
   },
@@ -427,5 +586,37 @@ row: {
 },
 checkbox: {
   margin: 8,
+},
+mapContainer: {
+  marginVertical: 10,
+},
+map: {
+  height: 200, // Set the height of each map
+  width: '100%',
+},
+menuButton: {
+  padding: 10,
+  backgroundColor: 'red',
+  borderRadius: 5,
+},
+menuButtonText: {
+  color: 'white',
+  fontWeight: 'bold',
+},
+dropdown: {
+  position: 'absolute',
+  top: 50, // Adjust this based on your design
+  right: 15,
+  backgroundColor: '#ffffff',
+  borderWidth: 1,
+  borderColor: '#d3d3d3',
+  borderRadius: 5,
+  zIndex: 1, // Ensures dropdown is above other content
+},
+dropdownItem: {
+  padding: 10,
+},
+dropdownText: {
+  fontSize: 16,
 },
 });
